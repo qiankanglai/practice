@@ -31,9 +31,12 @@ public class SingleNumberII {
     }
 
     public int singleNumber(int[] A) {
-        int one = 0, two = 0, three = 0;
+        int one = 0, two = 0, zero = 0xffffffff;
         for(int i = 0; i < A.length; i++){
-            one ^= A[i];
+            int _two = two;
+            two = (two & ~A[i]) | (one & A[i]);
+            one = (one & ~A[i]) | (zero & A[i]);
+            zero = (zero & ~A[i]) | (_two & A[i]);
         }
         return one;
     }
@@ -41,5 +44,6 @@ public class SingleNumberII {
     public static void main(String[] args){
         SingleNumberII w = new SingleNumberII();
         System.out.println(w.singleNumber(new int[]{-2,-2,1,1,-3,1,-3,-3,-4,-2}));
+        //System.out.println(w.singleNumber(new int[]{2,2,3,2}));
     }
 }
