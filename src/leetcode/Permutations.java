@@ -21,24 +21,24 @@ public class Permutations {
             arr[i] = i;
         res.add(convert(num, arr));
         while(true){
-            int i = num.length-2;
-            while(i >= 0 && num[i] > num[i+1])
+            int i = arr.length-2;
+            while(i >= 0 && arr[i] > arr[i+1])
                 i--;
             if(i < 0)
                 break;
-            int ii = i+1, j = num.length-1;
-            while(num[i] > num[j])
+            int ii = i+1, j = arr.length-1;
+            while(arr[i] > arr[j])
                 j--;
             //swap
-            int temp = num[i];
-            num[i] = num[j];
-            num[j] = temp;
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
             //reverse
-            int start = ii, end = num.length-1;
+            int start = ii, end = arr.length-1;
             for(int p = start, pe = (start+end); 2*p < pe; p++){
-                temp = num[p];
-                num[p] = num[pe-p];
-                num[pe-p] = temp;
+                temp = arr[p];
+                arr[p] = arr[pe-p];
+                arr[pe-p] = temp;
             }
             res.add(convert(num, arr));
         }
@@ -46,7 +46,7 @@ public class Permutations {
     }
 
     public static void main(String[] args){
-        int []arr = new int[]{1,2,3,4,5};
+        int []arr = new int[]{0,-1,1};
         Permutations w = new Permutations();
         System.out.println(w.permute(arr));
     }
