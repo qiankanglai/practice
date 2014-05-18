@@ -12,30 +12,30 @@ public class RecoverBinarySearchTree {
         n1.val = n2.val;
         n2.val = temp;
     }
-    public void go(TreeNode node, TreeNode smallest, TreeNode biggest)
+    public void inorderTraversal(TreeNode node)
     {
         if(node == null)
             return;
-        if(smallest != null && node.val <smallest.val){
-            temp.add(node); temp.add(smallest);
-        }
-        if(biggest != null && node.val >biggest.val){
-            temp.add(node); temp.add(biggest);
-        }
-
-        go(node.left, smallest, node);
-        go(node.right, node, biggest);
+        inorderTraversal(node.left);
+        temp.add(node);
+        inorderTraversal(node.right);
     }
     ArrayList<TreeNode> temp;
+    // I use extra space here!!!
+    // Please refer to morris traversal: http://oj.leetcode.com/discuss/2103/how-can-the-space-complextity-be-better-than-log-n-with-stack
     public void recoverTree(TreeNode root) {
         temp = new ArrayList<TreeNode>();
-        go(root, null, null);
-        if(temp.size() == 2){
-            swap(temp.get(0), temp.get(1));
+        inorderTraversal(root);
+        ArrayList<TreeNode> t = new ArrayList<TreeNode>();
+        for(int i = 0; i < temp.size(); i++){
+            if(i > 0 && temp.get(i-1).val > temp.get(i).val){
+                t.add(temp.get(i));
+            }
+            else if(i < temp.size()-1 && temp.get(i).val > temp.get(i+1).val){
+                t.add(temp.get(i));
+            }
         }
-        else if(temp.size() == 4){
-            swap(temp.get(0), temp.get(2));
-        }
+        swap(t.get(0), t.get(t.size()-1));
     }
 
     public static void main(String args[]){
