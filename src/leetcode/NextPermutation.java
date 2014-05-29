@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Arrays;
+
 /**
  * Created by Anthony on 2014/5/28.
  */
@@ -9,23 +11,31 @@ public class NextPermutation {
             return;
 
         int i = num.length-2;
-        while(i >= 0 && num[i] > num[i+1])
+        while(i >= 0 && num[i] >= num[i+1])
             i--;
-        if(i < 0)
+        if(i < 0) {
+            Arrays.sort(num);
             return; //got to the end
-        int ii = i+1, j = num.length-1;
-        while(num[i] > num[j])
-            j--;
-        //swap
+        }
+        int max_id = i+1;
+        for(int ii = max_id; ii < num.length; ii++){
+            if(num[ii] > num[i] && num[ii] < num[max_id]){
+                max_id = ii;
+            }
+        }
         int temp = num[i];
-        num[i] = num[j];
-        num[j] = temp;
-        //reverse
-        int start = ii, end = num.length-1;
-        for(int p = start, pe = (start+end); 2*p < pe; p++){
-            temp = num[p];
-            num[p] = num[pe-p];
-            num[pe-p] = temp;
+        num[i] = num[max_id];
+        num[max_id] = temp;
+
+        Arrays.sort(num, i+1, num.length);
+    }
+
+    public static void main(String args[]){
+        int arr[]=new int[]{5,1,1};
+        new NextPermutation().nextPermutation(arr);
+        for(int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]);
+            System.out.print(',');
         }
     }
 }
