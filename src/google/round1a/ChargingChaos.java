@@ -8,7 +8,9 @@ import java.util.Arrays;
  * Created by anthony on 4/26/14.
  */
 /*
-    ChargingChaos_old: old code, small AC & large incorrect
+    Kaizero的解法：对于第一个设备，穷举如果要用第i个插头充电，需要怎么样的开关，这时候其他设备是否ok~ 核心思路是搜索空间大大下降……
+    ChargingChaso: 修改版，老代码错是忘了Arrays.sort(switches_int_half);导致剪纸不对, 大数据依然超时(虽然结果对了)。可能要多减几层再？
+    ChargingChaos_old: 老代码, 小数据 AC & 大数据 incorrect
     https://code.google.com/codejam/contest/dashboard?c=2984486
  */
 public class ChargingChaos {
@@ -88,6 +90,7 @@ public class ChargingChaos {
     }
 
     public static void main(String args[]) throws IOException {
+        long t1 = System.currentTimeMillis();
         BufferedReader reader = new BufferedReader(new FileReader("src/google/round1a/A-large-practice.in"));
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/google/round1a/A-large-practice.out"));
         String temp = reader.readLine();
@@ -148,6 +151,8 @@ public class ChargingChaos {
 
         reader.close();
         writer.close();
+        long t2 = System.currentTimeMillis();
+        System.out.println("Time(s):"+(t2-t1)/1000);
     }
 }
 
@@ -238,7 +243,6 @@ class ChargingChaos_Old {
     }
 
     public static void main(String args[]) throws IOException {
-        long t1 = System.currentTimeMillis();
         BufferedReader reader = new BufferedReader(new FileReader("src/google/round1a/A-small-practice.in"));
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/google/round1a/A-small-practice.out"));
         String temp = reader.readLine();
@@ -299,7 +303,5 @@ class ChargingChaos_Old {
 
         reader.close();
         writer.close();
-        long t2 = System.currentTimeMillis();
-        System.out.println("Time(s):"+(t2-t1)/1000);
     }
 }

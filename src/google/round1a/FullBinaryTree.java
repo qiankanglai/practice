@@ -7,7 +7,10 @@ import java.util.Arrays;
 /**
  * Created by anthony on 4/26/14.
  */
-public class FullBinaryTree {
+
+//赛后参考吴迪的代码，有个细节改对了(当时小数据 AC, 大数据incorrect)
+
+class FullBinaryTree {
     static int N, deleted, currentDeleted;
     static int []depth, children_all;
     static ArrayList<ArrayList<Integer>> map;
@@ -64,8 +67,8 @@ public class FullBinaryTree {
     }
 
     public static void main(String args[]) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("src/google/round1a/B-large.in"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("src/google/round1a/B-large-practice.in"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/google/round1a/B-large-practice.out"));
         String temp = reader.readLine();
         int T = Integer.parseInt(temp);
         for(int _t = 0; _t < T; _t++){
