@@ -2,7 +2,7 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
-import datastructure.SmallRootHeap;
+import library.SmallRootHeap;
 
 /**
  * Created by Anthony on 2014/5/28.

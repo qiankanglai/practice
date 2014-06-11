@@ -1,6 +1,6 @@
 package leetcode;
 
-import datastructure.Sort;
+import library.Sort;
 
 /**
  * Created by Anthony on 2014/6/8.

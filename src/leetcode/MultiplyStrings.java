@@ -1,6 +1,6 @@
 package leetcode;
 
-import datastructure.BigNumber;
+import library.BigNumber;
 
 /**
  * Created by anthony on 6/6/14.
