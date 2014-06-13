@@ -5,8 +5,9 @@ package CCI;
  */
 public class Stack {
     Node top = null;
+    private int count = 0;
 
-    int pop(){
+    public int pop(){
         if(top != null){
             int item = top.data;
             top = top.next;
@@ -16,16 +17,23 @@ public class Stack {
             return -1;
     }
 
-    void push(int data){
+    public void push(int data){
         Node node = new Node(data);
         node.next = top;
         top = node;
+        count++;
     }
 
-    int peek(){
-        if(top != null)
+    public int peek(){
+        if(top != null) {
+            count--;
             return top.data;
+        }
         else
             return -1;
+    }
+
+    public int size(){
+        return count;
     }
 }
