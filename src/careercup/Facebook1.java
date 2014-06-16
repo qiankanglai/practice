@@ -48,7 +48,7 @@ public class Facebook1 {
         if(true){
             StringBuilder sb = new StringBuilder();
             Random rand = new Random();
-            for(int i = 0; i < 200; i++){
+            for(int i = 0; i < 10; i++){
                 if(rand.nextInt(10) < 5)
                     sb.append('x');
                 else
@@ -60,6 +60,6 @@ public class Facebook1 {
         }
         //System.out.println(count("x*xxxxxxxx*xx*x*x******x**xxx*"));
         //System.out.println(count("*xx***xxx*x**x"));
-        System.out.println(count("xxxxxxxxxx"));
+        //System.out.println(count("xxxxxxxxxx"));
     }
 }
