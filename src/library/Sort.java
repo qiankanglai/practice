@@ -104,6 +104,7 @@ public class Sort {
     }
 
     private static int partition(int[] arr, int low, int high){
+        //CCI书上的
         int pivot = arr[(low + high) / 2];
         while(low <= high){
             while(arr[low] < pivot)
@@ -120,12 +121,39 @@ public class Sort {
         }
         return low;
     }
+    private static int partition2(int[] arr, int low, int high) {
+        int mid = (low + high) / 2;
+        int temp = arr[mid];
+        arr[mid] = arr[high];
+        arr[high] = temp;
+
+        int ptr = low;
+        for(int i = low; i < high - 1; i++){
+            if(arr[i] < arr[high]){
+                temp = arr[ptr];
+                arr[ptr] = arr[i];
+                arr[i] = temp;
+                ptr++;
+            }
+        }
+        temp = arr[ptr];
+        arr[ptr] = arr[high];
+        arr[high] = temp;
+        return ptr;
+    }
     private static void QuickSort(int[] arr, int low, int high){
         if(low >= high)
             return;
-        int pivot = partition(arr, low, high);
-        QuickSort(arr, low, pivot-1);
-        QuickSort(arr, pivot, high);
+        if(true) {
+            int pivot = partition2(arr, low, high);
+            QuickSort(arr, low, pivot - 1);
+            QuickSort(arr, pivot + 1, high);
+        }
+        else{
+            int pivot = partition(arr, low, high);
+            QuickSort(arr, low, pivot - 1);
+            QuickSort(arr, pivot, high);
+        }
     }
     public static void QuickSort(int[] arr){
         QuickSort(arr, 0, arr.length-1);
