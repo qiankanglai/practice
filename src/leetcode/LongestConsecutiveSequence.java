@@ -9,7 +9,7 @@ public class LongestConsecutiveSequence {
     public int longestConsecutive(int[] num) {
         if(num == null || num.length == 0)
             return 0;
-        num = Sort.RadixSort(num);
+        Sort.RadixSort(num);
         int max = 1;
         int count = 1;
         for(int i = 1; i < num.length; i++){
