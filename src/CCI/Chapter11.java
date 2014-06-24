@@ -144,9 +144,83 @@ public class Chapter11 {
         return max;
     }
     //11.7 其实感觉是线段树
+    class RankNode{
+        RankNode left, right;
+        int value, left_children, count;
+        public RankNode(int v){
+            value = v;
+            left_children = 0;
+            count = 1;
+            left = null;
+            right = null;
+        }
+    }
+    RankNode root = null;
+    public int getRank(int x){
+        if(root == null)
+            return -1;
+        int s = 0;
+        RankNode p = root;
+        while(p != null){
+            if(p.value == x)
+                //<=x的数，但要扣掉自己
+                return s + p.left_children + p.count - 1;
+            else if(p.value > x)
+                p = p.left;
+            else{
+                s += p.left_children + p.count;
+                p = p.right;
+            }
+        }
+        return -1;
+    }
+
+    public void track(int x){
+        if(root == null){
+            root = new RankNode(x);
+            return;
+        }
+        RankNode p = root;
+        while(p != null) {
+            if (p.value == x) {
+                p.count ++;
+                return;
+            }
+            if (p.value < x) {
+                if(p.right != null)
+                    p = p.right;
+                else {
+                    p.right = new RankNode(x);
+                    return;
+                }
+            }
+            else{
+                p.left_children++;
+                if(p.left != null)
+                    p = p.left;
+                else {
+                    p.left = new RankNode(x);
+                    return;
+                }
+            }
+        }
+    }
 
     public static void main(String args[]){
-        System.out.println(new Chapter11().search(new String[]{"at", "", "", "", "ball", "", "", "car", "", "", "dad", "", ""}, "ball"));
+        //System.out.println(new Chapter11().search(new String[]{"at", "", "", "", "ball", "", "", "car", "", "", "dad", "", ""}, "ball"));
+        Chapter11 chap = new Chapter11();
+        chap.track(5);
+        chap.track(1);
+        chap.track(4);
+        chap.track(4);
+        chap.track(5);
+        chap.track(9);
+        chap.track(7);
+        chap.track(13);
+        chap.track(3);
+        System.out.println(chap.getRank(1));
+        System.out.println(chap.getRank(3));
+        System.out.println(chap.getRank(4));
     }
 
 }
