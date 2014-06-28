@@ -50,3 +50,13 @@ class SmartPointer{
 };
 //13.9 往前申请一段，不管malloc出来的位置，保证可以从对齐位开始
 //13.10
+
+void** my2DAlloc(int rows, int cols){
+    int data = rows*cols*sizeof(int);
+    int head = rows*sizeof(int);
+    void** ptr = malloc(data+head);
+    for(int i = 0; i < rows; i++){
+        ptr[i] = ptr[rows+i*cols];
+    }
+    return ptr;
+}
