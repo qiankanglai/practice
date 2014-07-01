@@ -1,4 +1,4 @@
-package hackerrank;
+package hackerrank.WarmUp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
