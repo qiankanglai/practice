@@ -12,28 +12,31 @@ public class MaximumSubarrayIII {
      * @return: An integer denote the sum of max k non-overlapping subarrays
      */
     public int maxSubArray(ArrayList<Integer> nums, int k) {
-        return maxSubArray(nums, k, nums.size()-1);
-    }
-    public int maxSubArray(ArrayList<Integer> nums, int k, int l) {
-        if(k == 0){
-            return 0;
-        }
-        while(l >= 0 && nums.get(l) <= 0){
-            l--;
-        }
-        if(l < 0 || k > l+1){
-            return 0;
-        }
-        int t1 = Math.max(maxSubArray(nums, k-1, l-1) + nums.get(l), maxSubArray(nums, k, l-1));
-        int temp = nums.get(l);
-        for(int l2 = l-1; l2 >= 0; l2--){
-            temp += nums.get(l2);
-            int t2 = maxSubArray(nums, k-1, l2-1) + temp;
-            if(t2 > t1){
-                t1 = t2;
+        int l = nums.size();
+        int cache[][] = new int[k+1][l+1];
+        for(int _k = 1; _k <= k; _k++){
+            {
+                int sum = 0;
+                for(int i = 0; i < _k; i++){
+                    sum += nums.get(i);
+                }
+                cache[_k][_k] = sum;
+            }
+            for(int _l = _k+1; _l <= l; _l++){
+                int t = cache[_k][_l-1];
+                int temp = 0, l2 = _l;
+                while(l2-1 >= _k-1){
+                    temp += nums.get(l2-1);
+                    int t2 = cache[_k-1][l2-1] + temp;
+                    if(t2 > t){
+                        t = t2;
+                    }
+                    l2--;
+                }
+                cache[_k][_l] = t;
             }
         }
-        return t1;
+        return cache[k][l];
     }
 
     public static void main(String args[]){
