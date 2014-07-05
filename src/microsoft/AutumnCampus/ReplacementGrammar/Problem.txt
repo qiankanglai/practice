@@ -1,0 +1,19 @@
+ReplacementGrammar
+
+Problem: 
+
+You will receive a message that must be translated by several string replacement rules. However, the exact replacement rules are not fixed - they will be provided as part of the input. You are to write a program that receives a list of string replacements rules followed by a message, and outputs the translated message.
+
+Details:
+
+0) A 'newline' consists of a carriage feed '\r' followed by a line feed '\n'.
+1) The input will begin with any number of 'string replacement rules'
+2) A 'string replacement rule' will consist of a series of characters followed a pipe '|' which will be followed by 0 or more characters, followed by a newline.
+3) The string before the pipe denotes what characters must be replaced. Instances of that string must be replaced by the string that follows after the pipe.
+4) All strings are case sensitive.
+5) The pipe, carriage feed, and line feed characters will never themselves be part of a replacement string. Replacement strings will only consist of printable ASCII characters.
+6) After the string replacement rules, there will be 1 or more newlines separating the rules from the message. 
+7) The message begins with the first character that is not part of a newline. Another newline marks the end of the message. At this point, you can stop reading from stdin.
+8) Rules must be applied in the order that they appear. Inserted text may be further altered by subsequent rules, but should not be further altered by the processing of the same rule.
+
+Score:12

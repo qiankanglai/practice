@@ -1,0 +1,19 @@
+SudokuProblem
+
+Problem:
+
+You must write a program able to solve standard Sudoku puzzles. 
+
+Details:
+
+0) For a description of the Sudoku puzzle, visit: http://en.wikipedia.org/wiki/Sudoku
+1) The input will be several square 9x9 matrices.
+2) The columns are separated by spaces and the rows by newlines.
+3) Spaces that are defined will contain an integer value
+4) Spaces that are not defined will contain the 'x' character
+5) There there will be a blank line separating puzzles.
+6) The output should be 9x9 matrices in a format like the input
+7) All spaces in the output matrices should have an integer value
+8) The resulting matrices must be valid Sudoku boards.
+
+Score:16

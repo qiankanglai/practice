@@ -1,0 +1,17 @@
+FollowDirections
+
+Problem:
+
+In this problem, your program will simulate a robot moving about a grid. You are given a set of directions. Your job is to compute your final position.
+
+Details:
+
+0) Directions will appear 1 per line.
+1) You start facing North at 0,0.
+2) Move directions will look like this: Move <signed 32-bit integer>.  
+3) Turn directions will look like this: Turn <left|right>
+4) Turns are relative to the direction you are currently facing.
+5) Interpret negative movement as moving backwards *without* changing direction.
+6) Express your answer as comma-separated integer pair where the first number is the final displacement travelled along East-West, and the second is the final displacement travelled along North-South.
+
+Score:12 

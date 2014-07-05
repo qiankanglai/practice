@@ -1,0 +1,17 @@
+TextQueryProblem
+
+Problem:
+
+Write a program that takes two strings as input, one is a query, and the other is a string that may or may not contain that query. Your program needs to find if the query is contained within the body string. 
+
+Details:
+
+0) The query should only match the body text if it matches the start of a word within the body text. 
+1) That is, the beginning of the query must also be the start of a word within the body text. For example, the query "cat" would match the strings "cat", "cat toy", "this is a cat", and "catty". However, the query "cat" would not match the string "location". 
+2) Your program should  be case insensitive. 
+3) Your program needs to be able to match queries without spaces in them, even if the body does have spaces. For example, the string "Luke Johnston" would be matched by the query "luke j" and the query "lukej". 
+4) However, this does not work the other way around. The query "luke j" should not match the string "lukejohnston". 
+5) You will be given an input text file with the first line containing an integer corresponding to the number of following problem input sets. Each following pair of lines will contain the query string on the first line, followed by the body string on the second line. Thus, if the first line contains the number 10, there are 20 more lines in the file. 
+6) You should output your answers to a text file with the first line containing an integer corresponding to the number of following individual answers. Each following line should read true if a match was found, or false if a match was not found. 
+
+Score:8

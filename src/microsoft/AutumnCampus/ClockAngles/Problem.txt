@@ -1,0 +1,20 @@
+ClockAngles
+
+Problem:
+
+Write a program to convert digital times (given in the format hh:mm:ss) to the angles between the various hands of an analog clock displaying the corresponding time.
+
+Details:
+
+0) Compute the angles between the hour hand and minute hand, hour hand and second hand, and the minute hand and second hand. 
+1) Assume that all three hands move once per second. Each time they move, they move an equal distance forward so that at noon and midnight the hour hand is at exactly 0 degrees, at the top of every hour the minute hand is at exactly 0 degrees, and at the beginning of every minute the second hand is at exactly 0 degrees. 
+2) The hour values in the digital time you are given will be between 1 and 12, inclusive, and will always be integers. The minute and second values will be between 0 and 59, inclusive and will always be integers. 
+3) The angle values you return as answers always need to be the positive angle between the two hands. 
+4) All of your answers should be between 0 and 180, inclusive. 
+5) The first line of the input will be a positive integer, n, corresponding to the number of input times in the file. 
+6) The next n lines will each contain one digital time value given in the format hh:mm:ss. 
+7) The first line of your output should contain a positive integer n and the next n lines should contain the three angle answer values for the corresponding input line. 
+8) You should print them in the format "hour to minute angle, hour to second angle, minute to second angle". 
+9) Your answers should be accurate to two decimal places (rounded) and should display both decimal places even if they are not significant. (i.e if the angle is 0 you should print out 0.00).
+
+Score:16
