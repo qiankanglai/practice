@@ -16,8 +16,50 @@ public class InsertionSortAdvancedAnalysis {
             for(int j=0;j<n;j++){
                 ar[j]=in.nextInt();
             }
-            System.out.println(insertSort_bst(ar));
+            System.out.println(insertSort(ar));
         }
+    }
+    //线段树
+    static class TreeNode2{
+        long start = 0, end = 0, count = 0;
+        TreeNode2 left = null, right = null;
+        public TreeNode2(long s, long e){
+            start = s;
+            end = e;
+        }
+    }
+    public static long insertSort(int[] ar)
+    {
+        long count = 0;
+        TreeNode2 root = new TreeNode2(1, 1000000);
+        for(int i = 0; i < ar.length; i++){
+            TreeNode2 p = root;
+            long small_than_this = 0;
+            while(p.start < p.end){
+                p.count++;
+                long mid = (p.start+p.end)/2;
+                if(ar[i] <= mid){
+                    if(p.left == null){
+                        p.left = new TreeNode2(p.start, mid);
+                    }
+                    p = p.left;
+                }
+                else{
+                    if(p.left != null){
+                        small_than_this += p.left.count;
+                    }
+
+                    if(p.right == null){
+                        p.right = new TreeNode2(mid+1, p.end);
+                    }
+                    p = p.right;
+                }
+            }
+            p.count++;
+            small_than_this += (p.count-1);
+            count += (i - small_than_this);
+        }
+        return count;
     }
 
     //使用BST做超时，需要考虑AVL
