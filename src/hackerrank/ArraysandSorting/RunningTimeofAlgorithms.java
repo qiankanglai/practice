@@ -19,13 +19,6 @@ public class RunningTimeofAlgorithms {
             A[j + 1] = value;
         }
         System.out.println(shifts);
-        //printArray(A);
-    }
-
-    static void printArray(int[] ar) {
-        for (int n : ar) {
-            System.out.print(n + " ");
-        }
     }
 
     public static void main(String[] args) {
