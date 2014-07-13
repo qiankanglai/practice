@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Created by anthony on 7/6/14.
  */
-public class A {
+public class Week1 {
     //http://hihocoder.com/contest/hiho1/problem/1
     //之前leetcode的DP解法不够，参考:
     // http://www.felix021.com/blog/read.php?2040

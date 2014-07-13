@@ -8,13 +8,16 @@ import java.util.HashMap;
 public class TRIE {
     private Character currentChar = null;
     private String currentString = "";
+    private int count = 0;
     private HashMap<Character, TRIE> children = new HashMap<Character, TRIE>();
 
     public TRIE(Character c, String s){
         currentChar = c;
         currentString = s + c;
+        count = 0;
     }
     public void add(String str){
+        count++;
         if(str.length() == 0)
             return;
         char c = str.charAt(0);
@@ -23,12 +26,12 @@ public class TRIE {
             children.put(c, new TRIE(c, currentString));
         children.get(c).add(s2);
     }
-    public boolean find(String str){
+    public int find(String str){
         if(str.length() == 0)
-            return true;
+            return count;
         char c = str.charAt(0);
         if(!children.containsKey(c))
-            return false;
+            return 0;
         String s2 = str.substring(1);
         return children.get(c).find(s2);
     }
