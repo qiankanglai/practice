@@ -23,10 +23,7 @@ import java.util.Set;
  */
 @SuppressWarnings("unchecked")
 public class BinarySearchTree<T extends Comparable<T>> {
-
     private int modifications = 0;
-
-    protected static final Random RANDOM = new Random();
 
     protected enum Position {
         LEFT, RIGHT
@@ -583,6 +580,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public T[] getSorted() {
         // Depth first search to traverse the tree in-order sorted.
         return getDFS(DepthFirstSearchOrder.inOrder);
+    }
+
+    public int getSize() {
+        return size;
     }
 
     @Override
