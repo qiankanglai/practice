@@ -236,13 +236,6 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
         return AVLTreePrinter.getString(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Node<T> createNewNode(Node<T> parent, T id) {
-        return (new AVLNode<T>(parent, id));
-    }
-
     protected static class AVLNode<T extends Comparable<T>> extends Node<T> {
 
         protected int height = 1;
