@@ -1,7 +1,5 @@
 package leetcode;
 
-import sun.org.mozilla.javascript.internal.ast.Jump;
-
 import java.util.Arrays;
 
 /**
