@@ -1,17 +1,20 @@
-package google.campustest;
+package google.campustest.practice2014;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.Stack;
 
 /**
  * Created by anthony on 4/5/14.
  */
 public class BadHorse {
     public static void main(String args[]) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(""));
+        BufferedReader reader = new BufferedReader(new FileReader
+                ("src/google/campustest/practice2014/A-small-practice-2.in"));
         String temp = reader.readLine();
         int T = Integer.parseInt(temp);
         for(int _t = 0; _t < T; _t++){
@@ -34,29 +37,28 @@ public class BadHorse {
 
             boolean flag = true;
             HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+            for(String s : input.keySet()){
+                if(map.containsKey(s))
+                    continue;
 
-            ArrayList<String> names = new ArrayList<String>(input.keySet());
-            //HOLY SHIT: I should check new colored nodes first!!! using a sorted arraylist
-            while(names.size() > 0){
-                String name0 = names.remove(0);
-                Boolean v0 = map.get(name0);
-                if(v0 == null){
-                    map.put(name0, true);
-                    v0 = true;
-                }
-                Boolean _v1 = (v0==true)?false:true;
+                Stack<String> names = new Stack<String>();
+                names.add(s);
+                map.put(s, true);
 
-                ArrayList<String> name1s = input.get(name0);
-                for(String name1 : name1s){
-                    Boolean v1 = map.get(name1);
-                    if(v1 == null){
-                        map.put(name1, _v1);
-                        names.remove(name1);
-                        names.add(0, name1);
-                    }
-                    else if(v1 != _v1){
-                        flag = false;
-                        break;
+                while(!names.isEmpty()){
+                    String name = names.pop();
+                    boolean b = map.get(name);
+                    for(String s2 : input.get(name)){
+                        if(map.containsKey(s2)){
+                            if(map.get(s2) == b){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        else{
+                            map.put(s2, !b);
+                            names.add(s2);
+                        }
                     }
                 }
                 if(!flag)

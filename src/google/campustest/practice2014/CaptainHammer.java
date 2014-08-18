@@ -1,4 +1,4 @@
-package google.campustest;
+package google.campustest.practice2014;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,7 +9,8 @@ import java.io.IOException;
  */
 public class CaptainHammer {
     public static void main(String args[]) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("captainhammer.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader
+                ("src/google/campustest/practice2014/B-small-practice.in"));
         String temp = reader.readLine();
         int T = Integer.parseInt(temp);
         for(int _t = 0; _t < T; _t++){
