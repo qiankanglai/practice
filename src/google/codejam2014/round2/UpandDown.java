@@ -1,7 +1,6 @@
-package google.round2;
+package google.codejam2014.round2;
 
 import java.io.*;
-import java.util.Arrays;
 
 /**
  * Created by anthony on 5/31/14.

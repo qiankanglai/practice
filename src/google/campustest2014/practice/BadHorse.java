@@ -1,11 +1,10 @@
-package google.campustest.practice2014;
+package google.campustest2014.practice;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Stack;
 public class BadHorse {
     public static void main(String args[]) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader
-                ("src/google/campustest/practice2014/A-small-practice-2.in"));
+                ("src/google/campustest2014/practice/A-small-practice-2.in"));
         String temp = reader.readLine();
         int T = Integer.parseInt(temp);
         for(int _t = 0; _t < T; _t++){

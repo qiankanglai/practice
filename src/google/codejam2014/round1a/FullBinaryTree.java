@@ -1,4 +1,4 @@
-package google.round1a;
+package google.codejam2014.round1a;
 
 import java.io.*;
 import java.util.ArrayList;
