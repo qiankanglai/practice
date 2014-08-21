@@ -8,6 +8,7 @@ import java.util.Stack;
 /**
  * Created by anthony on 7/14/14.
  */
+//https://www.hackerrank.com/challenges/queens-on-board
 public class QueensonBoard {
     private static final int module = 1000000007;
     private static int m = 0, n = 0, count = 0;
@@ -23,7 +24,17 @@ public class QueensonBoard {
     private static boolean available_diagona2[][] = null;
     private static int diagona2_id[][] = null;
 
-    private static Integer candidates[] = null;
+    static class ColumnCandidate{
+        public int x, y;    //起始点位置
+        public int length;  //长度
+
+        public ColumnCandidate(int x, int y, int l) {
+            this.x = x;
+            this.y = y;
+            this.length = l;
+        }
+    }
+    private static ArrayList<ColumnCandidate> candidates = null;
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -122,47 +133,48 @@ public class QueensonBoard {
             long result = 1;
             for(int i = 0; i < n*m; i++) {
                 if(isBlock[i/m][i%m] == 0) {
-                    ArrayList<Integer> _candidates = new ArrayList<Integer>();
-                    dfs_build(i, _candidates);
-                    candidates = _candidates.toArray(new Integer[0]);
-                    Arrays.sort(candidates);
-
-                    count = 0;
+                    candidates = new ArrayList<ColumnCandidate>();
                     Stack<Integer> stack = new Stack<Integer>();
-
-                    int i2 = 0;
-                    while(true){
-                        for(; i2 < candidates.length; i2++){
-                            int y2 = candidates[i2] / m;
-                            int x2 = candidates[i2] % m;
-                            if(isBlock[y2][x2] < 0)
-                                continue;
-                            if(!available_row[y2][row_id[y2][x2]])
-                                continue;
-                            if(!available_column[x2][column_id[y2][x2]])
-                                continue;
-                            if(!available_diagona1[x2+y2][diagona1_id[y2][x2]])
-                                continue;
-                            if(!available_diagona2[y2-x2+m-1][diagona2_id[y2][x2]])
-                                continue;
-                            break;
+                    stack.add(i);
+                    while(!stack.empty()){
+                        //isBlock: -1 砖头；0 未遍历过；1 加入stack；2 遍历了
+                        int idx = stack.pop();
+                        int y = idx/m, x = idx%m;
+                        boolean hasVisited = false;
+                        while(y-1 >= 0 && isBlock[y-1][x] >= 0){
+                            y--;
                         }
-                        if(i2 < candidates.length){
-                            count++;
-                            mark(candidates[i2], false);
-                            stack.add(i2);
-                            i2++;
-                        }
-                        else{
-                            if(stack.empty()){
+                        ColumnCandidate c = new ColumnCandidate(x, y, 0);
+                        while(y<n && isBlock[y][x] >= 0){
+                            if(isBlock[y][x] == 0 || isBlock[y][x] == 1){
+                                isBlock[y][x] = 2;
+                                final int dx[] = {-1,1,1,1,-1,-1};
+                                final int dy[] = {-1,-1,0,1,1,0};
+                                for(int di = 0; di < 6; di++){        //不考虑上下
+                                    int x2 = x+dx[di], y2 = y+dy[di];
+                                    if(x2 < 0 || y2 < 0 || x2 >= m || y2 >= n)
+                                        continue;
+                                    if(isBlock[y2][x2] == 0){
+                                        isBlock[y2][x2] = 1;
+                                        stack.add(y2*m+x2);
+                                    }
+                                }
+                            }
+                            else if(isBlock[y][x] == 2){
+                                hasVisited = true;
                                 break;
                             }
-                            i2 = stack.peek()+1;
-                            mark(candidates[stack.peek()], true);
-                            stack.pop();
+                            y++;
+                        }
+                        if(!hasVisited) {
+                            c.length = y - c.y;
+                            candidates.add(c);
                         }
                     }
-                    result = result * (count+1) % module;
+
+                    count = 0;
+                    dfs(0);
+                    result = result * count % module;
                     if(result == 0)
                         break;
                 }
@@ -171,10 +183,33 @@ public class QueensonBoard {
         }
     }
 
-    private static void mark(int idx, boolean b) {
-        int y = idx / m;
-        int x = idx % m;
+    private static void dfs(int level) {
+        if(level >= candidates.size()) {
+            count++;
+            return;
+        }
+        int x2 = candidates.get(level).x, y0 = candidates.get(level).y, l = candidates.get(level).length;
+        dfs(level+1);   //这个column啥也不放
+        for(int i = 0; i < l; i++){
+            int y2 = y0+i;
+            if(isBlock[y2][x2] < 0)
+                continue;
+            if(!available_row[y2][row_id[y2][x2]])
+                continue;
+            if(!available_column[x2][column_id[y2][x2]])
+                continue;
+            if(!available_diagona1[x2+y2][diagona1_id[y2][x2]])
+                continue;
+            if(!available_diagona2[y2-x2+m-1][diagona2_id[y2][x2]])
+                continue;
 
+            mark(x2, y2, false);
+            dfs(level+1);
+            mark(x2, y2, true);
+        }
+    }
+
+    private static void mark(int x, int y, boolean b) {
         available_row[y][row_id[y][x]] = b;
         available_column[x][column_id[y][x]] = b;
         available_diagona1[x+y][diagona1_id[y][x]] = b;
