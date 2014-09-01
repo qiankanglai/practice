@@ -17,40 +17,90 @@ public class DortmundDilemma {
                 C[i][j] = C[i][j-1] * (i-j+1) / j % modulo;
             }
         }
+        int N = 100000;
+        //Result Array1: result[k][n] how many names with length = n and characters <= k
+        long [][]result = new long[27][];
+        for(int k = 1; k <= 26; k++){
+            result[k] = solve2(N, k);
+        }
+        //Result Array2: result[k][n] how many names with length = n and characters = k
+        boolean flags[] = new boolean[N+1];
+        /*for(int n = 1; n <= N; n++){
+            for(int k = 1; k <= 26; k++){
+                for(int i = 1; i < k; i++) {
+                    result[k][n] -= result[i][n] * C[k][i];
+                    while (result[k][n] < 0) {
+                        result[k][n] += modulo;
+                    }
+                }
+                result[k][n] = result[k][n] % modulo;
+            }
+        }*/
 
         Scanner in = new Scanner(System.in);
         int t = in.nextInt();
         for (int _t = 0; _t < t; _t++) {
             int n = in.nextInt();
             int k = in.nextInt();
-            long sum = solve(n, k) - solve(n, k-1)*k;
-            sum = sum % modulo;
-            sum *= C[26][k];
-            sum = sum % modulo;
+            if(!flags[n]){
+                flags[n] = true;
+                for(int k2 = 1; k2 <= 26; k2++){
+                    for(int i = 1; i < k2; i++) {
+                        result[k2][n] -= result[i][n] * C[k2][i];
+                        while (result[k2][n] < 0) {
+                            result[k2][n] += modulo;
+                        }
+                    }
+                    result[k2][n] = result[k2][n] % modulo;
+                }
+            }
+            long sum = (result[k][n] * C[26][k]) % modulo;
             System.out.println(sum);
         }
         in.close();
     }
-    /*
-    public static long pow(int k, int i){
-        long t = 1;
-        for(int j = 0; j < i; j++){
-            t *= k;
+
+    // make f(n,k) simpler!
+    // f(n,k)=k*f(n-1,k)+ [xxx (if n%2 == 0)]
+    private static long[] solve2(int n, int k) {
+        long pow_cache = 1;
+
+        long solve_cache[] = new long[Math.max(n+1, 2)];
+        solve_cache[0] = 0;
+        solve_cache[1] = 0;
+        for(int _n = 2; _n <= n; _n++){
+            long sum = (solve_cache[_n-1] * k) % modulo;
+            if(_n % 2 == 0){
+                pow_cache = (pow_cache * k) % modulo;
+                sum += (pow_cache - solve_cache[_n/2]);
+                while(sum < 0){
+                    sum += modulo;
+                }
+            }
+            solve_cache[_n] = sum % modulo;
         }
-        return t;
+        return solve_cache;
     }
 
-    private static long solve(int n, int k) {
-        if(n <= 1)
-            return 0;
-        long sum = 0;
-        for(int i = 1; i <= n/2; i++){
-            sum  += (pow(k, i) - solve(i, k)) * pow(k, n-2*i);
+    /*
+    f(n,k): how many names with length = n and characters <= k
+    f(n,k) = sum_{i=1}^{n/2} ((k^i - f(i,k)) * k^{n-2*i})
+
+    Use solve() like this:
+    long sums[] = new long[k+1];
+    sums[0] = 0;
+    sums[1] = (n>1)?1:0;
+    for(int _k = 2; _k <= k; _k++){
+        sums[_k] = solve(n, _k);
+        for(int i = 1; i < _k; i++){
+            sums[_k] -= sums[i] * C[_k][i];
+            while(sums[_k] < 0){
+                sums[_k] += modulo;
+            }
+            sums[_k] = sums[_k] % modulo;
         }
-        return sum;
     }
     */
-
     private static long solve(int n, int k) {
         if (n <= 1)
             return 0;
