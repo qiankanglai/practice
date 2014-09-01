@@ -24,36 +24,24 @@ public class DortmundDilemma {
             result[k] = solve2(N, k);
         }
         //Result Array2: result[k][n] how many names with length = n and characters = k
-        boolean flags[] = new boolean[N+1];
-        /*for(int n = 1; n <= N; n++){
+        for(int n = 1; n <= N; n++){
             for(int k = 1; k <= 26; k++){
+                long sum = result[k][n];
                 for(int i = 1; i < k; i++) {
-                    result[k][n] -= result[i][n] * C[k][i];
-                    while (result[k][n] < 0) {
-                        result[k][n] += modulo;
+                    sum -= result[i][n] * C[k][i];
+                    while (sum < 0) {
+                        sum = sum % modulo + modulo;
                     }
                 }
-                result[k][n] = result[k][n] % modulo;
+                result[k][n] = sum % modulo;
             }
-        }*/
+        }
 
         Scanner in = new Scanner(System.in);
         int t = in.nextInt();
         for (int _t = 0; _t < t; _t++) {
             int n = in.nextInt();
             int k = in.nextInt();
-            if(!flags[n]){
-                flags[n] = true;
-                for(int k2 = 1; k2 <= 26; k2++){
-                    for(int i = 1; i < k2; i++) {
-                        result[k2][n] -= result[i][n] * C[k2][i];
-                        while (result[k2][n] < 0) {
-                            result[k2][n] += modulo;
-                        }
-                    }
-                    result[k2][n] = result[k2][n] % modulo;
-                }
-            }
             long sum = (result[k][n] * C[26][k]) % modulo;
             System.out.println(sum);
         }
