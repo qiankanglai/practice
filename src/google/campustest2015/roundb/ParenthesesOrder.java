@@ -2,6 +2,7 @@ package google.campustest2015.roundb;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 /**
@@ -10,17 +11,19 @@ import java.util.Scanner;
 public class ParenthesesOrder {
     public static void main(String args[]) throws IOException {
         Scanner in = new Scanner(new File
-                ("src/google/campustest2015/roundb/D-large.in"));
+                ("src/google/campustest2015/roundb/D-large-practice.in"));
         String temp = in.nextLine();
         int T = Integer.parseInt(temp);
         for (int _t = 0; _t < T; _t++) {
-            int n = in.nextInt();
-            long k = in.nextLong();
+            temp = in.nextLine();
+            String t2[] = temp.split(" ");
+            int n = Integer.valueOf(t2[0]);
+            BigInteger k = new BigInteger(t2[1]);
 
             System.out.print("Case #");
             System.out.print(_t+1);
             System.out.print(": ");
-            if(k > count(n, n))
+            if(k.compareTo(count(n, n)) > 0)
                 System.out.println("Doesn't Exist!");
             else
                 System.out.println(solve(n, k));
@@ -28,23 +31,23 @@ public class ParenthesesOrder {
         in.close();
     }
 
-    static private long cache[][] = new long[101][101];
-    private static long count(int left, int right){
+    static private BigInteger cache[][] = new BigInteger[101][101];
+    private static BigInteger count(int left, int right){
         //ensure right >= left
         if(right == 0)
-            return 1;
+            return BigInteger.ONE;
         if(left < 0 || right < 0)
-            return 0;
-        if(cache[left][right] > 0)
+            return BigInteger.ZERO;
+        if(cache[left][right] != null)
             return cache[left][right];
-        long t = count(left-1, right);
+        BigInteger t = count(left-1, right);
         if(right > left)
-            t += count(left, right-1);
+            t = t.add(count(left, right - 1));
         cache[left][right] = t;
         return t;
     }
 
-    private static String solve(int n, long k) {
+    private static String solve(int n, BigInteger k) {
         int left = n, right = n;
         StringBuilder sb = new StringBuilder();
         while(left > 0 && right > 0){
@@ -53,10 +56,10 @@ public class ParenthesesOrder {
                 left--;
                 continue;
             }
-            long t = count(left-1, right);
-            if(k > t){
+            BigInteger t = count(left-1, right);
+            if(k.compareTo(t) > 0){
                 sb.append(")");
-                k -= t;
+                k = k.add(t.negate());
                 right--;
             }
             else{
