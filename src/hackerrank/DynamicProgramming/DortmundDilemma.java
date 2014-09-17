@@ -14,6 +14,8 @@ public class DortmundDilemma {
         for(int i = 1; i <= 26; i++){
             C[i][0] = 1;
             for(int j = 1; j <= i; j++){
+                // In fact this will become wrong for bigger number!!!
+                // use C[i][j] = C[i-1][j-1] + C[i-1][j] instead
                 C[i][j] = C[i][j-1] * (i-j+1) / j % modulo;
             }
         }

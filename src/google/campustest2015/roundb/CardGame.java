@@ -11,7 +11,8 @@ import java.util.Stack;
  * Created by Anthony on 9/15/2014.
  */
 public class CardGame {
-
+    // It should be DP!!!
+    // Greedy cannot solve this: 5 6 4 5 6 7
     public static void main(String args[]) throws IOException {
         Scanner in = new Scanner(new File
                 ("src/google/campustest2015/roundb/C-small-practice.in"));
