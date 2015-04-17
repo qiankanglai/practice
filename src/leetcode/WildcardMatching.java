@@ -4,6 +4,7 @@ package leetcode;
  * Created by Anthony on 2014/5/27.
  */
 public class WildcardMatching {
+    // 值得参考：https://oj.leetcode.com/discuss/10133/linear-runtime-and-constant-space-solution
     public boolean isMatch(String s, String p) {
         if(p.length() == 0)
             return s.length() == 0;
