@@ -8,8 +8,7 @@ public class GpsSpeed {
         int speed = 0;
         for(int i = 0; i+1 < x.length; i++)
         {
-            double t = (x[i+1]-x[i])/s*3600;
-            System.out.println(t);
+            double t = (x[i+1]-x[i])*3600/s;    // FUCKING ANNOYING: *s/3600 is wrong
             int t2 = (int)Math.floor(t);
             if(t2>speed) speed = t2;
         }
